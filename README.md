@@ -24,7 +24,7 @@
 
 ---
 
-## 設定 config.json
+## config.json
 
 `config.json` 會在 exe 第一次執行時自動產生於同目錄。以文字編輯器開啟即可修改。
 

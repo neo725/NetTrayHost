@@ -65,7 +65,9 @@ Alternatively, copy `config.default.json` (included in the project) to the same 
 
 ## Installation
 
-Download `NetTrayHost.exe` from the Releases page and place it in any folder. No installer or administrator privileges required.
+Download the latest release, extract the zip, and run `NetTrayHost.exe`. No installer or administrator privileges required.
+
+**[⬇ Download NetTrayHost-v1.0.0-win-x64.zip](https://github.com/neo725/NetTrayHost/releases/download/v1.0.0/NetTrayHost-v1.0.0-win-x64.zip)**　｜　[All releases](https://github.com/neo725/NetTrayHost/releases)
 
 **System requirement:** Windows 10 / 11 with [.NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0), or use the self-contained build below.
 

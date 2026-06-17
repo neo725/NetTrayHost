@@ -65,8 +65,10 @@
 
 ## 安裝與執行
 
-直接下載 Release 頁面的 `NetTrayHost.exe`，放到任意資料夾執行即可。
+直接下載最新版本的壓縮檔，解壓後執行 `NetTrayHost.exe` 即可。
 不需要安裝程式，也不需要系統管理員權限。
+
+**[⬇ 下載 NetTrayHost-v1.0.0-win-x64.zip](https://github.com/neo725/NetTrayHost/releases/download/v1.0.0/NetTrayHost-v1.0.0-win-x64.zip)**　｜　[所有版本](https://github.com/neo725/NetTrayHost/releases)
 
 **系統需求：** Windows 10 / 11（需安裝 [.NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)，或使用下方 self-contained 發布版本）
 

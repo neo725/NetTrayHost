@@ -16,7 +16,7 @@ A Windows system tray manager for CLI applications — keep background processes
 - Lives entirely in the system tray; no main window, no taskbar entry
 - Manage multiple CLI processes from a single right-click menu, each showing its own status (🟢 Running / 🔴 Stopped)
 - Start, stop, show, or hide the console window of each process individually
-- Auto-restart on unexpected crashes (up to 3 attempts); manual stops never trigger a restart
+- Auto-restart on unexpected crashes (configurable, default 3 attempts); manual stops never trigger a restart
 - Each process can be configured to start automatically when NetTrayHost launches
 - Optional Windows startup entry to launch NetTrayHost itself at login
 - `config.json` lives next to the exe; changes such as `autoStart` are written back immediately
@@ -39,6 +39,7 @@ A Windows system tray manager for CLI applications — keep background processes
       "arguments": "--port 8080",
       "autoStart": true,
       "autoRestart": true,
+      "maxAutoRestartAttempts": 3,
       "startVisible": false
     }
   ]
@@ -54,7 +55,8 @@ A Windows system tray manager for CLI applications — keep background processes
 | `workingDirectory` | Working directory; defaults to the exe's directory if left empty |
 | `arguments` | Command-line arguments passed to the process |
 | `autoStart` | When `true`, the process starts automatically with NetTrayHost |
-| `autoRestart` | When `true`, the process restarts automatically after an unexpected exit (max 3 attempts) |
+| `autoRestart` | When `true`, the process restarts automatically after an unexpected exit |
+| `maxAutoRestartAttempts` | Maximum number of auto-restart attempts (default `3`) |
 | `startVisible` | When `false`, the process starts in background mode with no console window |
 
 ---

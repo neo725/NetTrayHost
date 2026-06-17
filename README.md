@@ -16,7 +16,7 @@
 - 純系統匣運作，無主視窗，不佔用工作列空間
 - 右鍵選單管理多個 CLI 程序，各自顯示執行狀態（🟢 執行中 / 🔴 已停止）
 - 支援啟動、停止、顯示 / 隱藏 Console 視窗
-- 程序意外崩潰時自動重啟（最多 3 次）；使用者手動停止則不觸發
+- 程序意外崩潰時自動重啟（次數可設定，預設 3 次）；使用者手動停止則不觸發
 - 各程序可個別設定是否隨 NetTrayHost 啟動時自動執行
 - 可設定 NetTrayHost 本身是否隨 Windows 開機自動執行
 - 設定檔 `config.json` 存放於 exe 同目錄，變更即時回寫
@@ -39,6 +39,7 @@
       "arguments": "--port 8080",
       "autoStart": true,
       "autoRestart": true,
+      "maxAutoRestartAttempts": 3,
       "startVisible": false
     }
   ]
@@ -54,7 +55,8 @@
 | `workingDirectory` | 工作目錄；留空則預設為 exe 所在資料夾 |
 | `arguments` | 傳入程序的命令列參數 |
 | `autoStart` | `true` 時，NetTrayHost 啟動後此程序自動跟著啟動 |
-| `autoRestart` | `true` 時，程序意外結束後自動重啟（上限 3 次） |
+| `autoRestart` | `true` 時，程序意外結束後自動重啟 |
+| `maxAutoRestartAttempts` | 自動重啟的最大嘗試次數（預設 `3`） |
 | `startVisible` | `false` 時以背景模式啟動，不顯示 Console 視窗 |
 
 ---

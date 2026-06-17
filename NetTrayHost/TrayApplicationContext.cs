@@ -60,6 +60,19 @@ namespace NetTrayHost
             }
 
             var settingsMenuItem = new ToolStripMenuItem(_locale["Settings"]);
+
+            var languageMenuItem = new ToolStripMenuItem(_locale["Language"]);
+            foreach (var (code, name) in LocaleLoader.DiscoverLocales())
+            {
+                var captured = code;
+                var item = new ToolStripMenuItem(name, null, (_, _) => SwitchLocale(captured))
+                {
+                    Checked = string.Equals(code, _config.Locale, StringComparison.OrdinalIgnoreCase)
+                };
+                languageMenuItem.DropDownItems.Add(item);
+            }
+            settingsMenuItem.DropDownItems.Add(languageMenuItem);
+
             _netTrayHostStartupMenuItem = new ToolStripMenuItem(_locale["StartupWithWindows"], null, (_, _) => ToggleNetTrayHostStartup())
             {
                 CheckOnClick = false
@@ -85,7 +98,7 @@ namespace NetTrayHost
             }
 
             UpdateNetTrayHostStartupMenuState();
-            StartAutoStartProcesses();
+            AdoptOrStartProcesses();
         }
 
         private ProcessMenuState CreateProcessMenuState(ProcessConfigModel config)
@@ -133,20 +146,37 @@ namespace NetTrayHost
             return processMenuState;
         }
 
-        private void StartAutoStartProcesses()
+        private void AdoptOrStartProcesses()
         {
-            foreach (var processMenuState in _processMenuStates.Where(x => x.Config.AutoStart))
+            foreach (var processMenuState in _processMenuStates)
             {
                 try
                 {
-                    _logger.Info($"Process '{processMenuState.Config.Name}' autoStart is enabled; starting with NetTrayHost.");
-                    processMenuState.Manager.Start();
+                    if (processMenuState.Manager.TryAdopt()) continue;
+
+                    if (processMenuState.Config.AutoStart)
+                    {
+                        _logger.Info($"Process '{processMenuState.Config.Name}' autoStart is enabled; starting with NetTrayHost.");
+                        processMenuState.Manager.Start();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    _logger.Error($"Process '{processMenuState.Config.Name}' autoStart failed.", ex);
+                    _logger.Error($"Process '{processMenuState.Config.Name}' startup failed.", ex);
                 }
             }
+        }
+
+        private void SwitchLocale(string locale)
+        {
+            if (string.Equals(locale, _config.Locale, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            _config.Locale = locale;
+            _configLoader.Save(_config);
+            Application.Restart();
         }
 
         private void ToggleAutoStart(ProcessConfigModel config)

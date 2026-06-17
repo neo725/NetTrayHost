@@ -38,6 +38,55 @@ namespace NetTrayHost
         public bool HasConsoleWindow => _consoleWindowHandle != IntPtr.Zero;
         public bool IsConsoleWindowVisible => HasConsoleWindow && NativeMethods.IsWindowVisible(_consoleWindowHandle);
 
+        public bool TryAdopt()
+        {
+            lock (_gate)
+            {
+                ThrowIfDisposed();
+                if (IsRunning) return false;
+            }
+
+            var exePath = Path.GetFullPath(_config.Exe);
+            Process? adopted = null;
+
+            foreach (var candidate in Process.GetProcesses())
+            {
+                try
+                {
+                    if (!candidate.HasExited && string.Equals(
+                            Path.GetFullPath(candidate.MainModule?.FileName ?? string.Empty),
+                            exePath,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        adopted = candidate;
+                        break;
+                    }
+                }
+                catch { /* skip inaccessible processes */ }
+                finally
+                {
+                    if (!ReferenceEquals(candidate, adopted))
+                        candidate.Dispose();
+                }
+            }
+
+            if (adopted is null) return false;
+
+            lock (_gate)
+            {
+                ThrowIfDisposed();
+                adopted.EnableRaisingEvents = true;
+                adopted.Exited += OnProcessExited;
+                _process = adopted;
+                _userRequestedStop = false;
+                _logger.Info($"Process '{Name}' adopted existing instance. PID={adopted.Id}.");
+            }
+
+            CaptureConsoleWindow();
+            NotifyStateChanged();
+            return true;
+        }
+
         public void Start()
         {
             lock (_gate)

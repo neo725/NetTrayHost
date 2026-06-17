@@ -123,6 +123,10 @@ namespace NetTrayHost
                 return false;
             }
 
+            var exStyle = NativeMethods.GetWindowLong(_consoleWindowHandle, NativeMethods.GWL_EXSTYLE);
+            NativeMethods.SetWindowLong(_consoleWindowHandle, NativeMethods.GWL_EXSTYLE,
+                (exStyle & ~NativeMethods.WS_EX_TOOLWINDOW) | NativeMethods.WS_EX_APPWINDOW);
+
             var result = NativeMethods.ShowWindow(_consoleWindowHandle, NativeMethods.SW_SHOW);
             _logger.Info($"Process '{Name}' console show requested. Result={result}.");
             NotifyStateChanged();
@@ -136,6 +140,10 @@ namespace NetTrayHost
                 _logger.Info($"Process '{Name}' hide skipped because console window handle is unavailable.");
                 return false;
             }
+
+            var exStyle = NativeMethods.GetWindowLong(_consoleWindowHandle, NativeMethods.GWL_EXSTYLE);
+            NativeMethods.SetWindowLong(_consoleWindowHandle, NativeMethods.GWL_EXSTYLE,
+                (exStyle & ~NativeMethods.WS_EX_APPWINDOW) | NativeMethods.WS_EX_TOOLWINDOW);
 
             var result = NativeMethods.ShowWindow(_consoleWindowHandle, NativeMethods.SW_HIDE);
             _logger.Info($"Process '{Name}' console hide requested. Result={result}.");

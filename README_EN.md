@@ -28,6 +28,8 @@ A Windows system tray manager for CLI applications — keep background processes
 
 `config.json` is generated automatically in the same directory as the exe on first run. Edit it with any text editor.
 
+Alternatively, copy `config.default.json` (included in the project) to the same directory as the exe, rename it to `config.json`, and use it as a starting point.
+
 ```json
 {
   "locale": "en",

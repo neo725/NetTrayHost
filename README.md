@@ -28,6 +28,8 @@
 
 `config.json` 會在 exe 第一次執行時自動產生於同目錄。以文字編輯器開啟即可修改。
 
+也可以直接將專案內附的 `config.default.json` 複製到 exe 同層目錄並重新命名為 `config.json`，做為起始設定快速上手。
+
 ```json
 {
   "locale": "zh-TW",

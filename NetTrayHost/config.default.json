@@ -1,0 +1,15 @@
+{
+  "locale": "zh-TW",
+  "processes": [
+    {
+      "name": "MockCli",
+      "exe": "..\\..\\..\\..\\spike\\MockCli\\bin\\Debug\\net8.0\\MockCli.exe",
+      "workingDirectory": "..\\..\\..\\..\\spike\\MockCli\\bin\\Debug\\net8.0",
+      "arguments": "",
+      "autoStart": false,
+      "autoRestart": true,
+      "maxAutoRestartAttempts": 3,
+      "startVisible": true
+    }
+  ]
+}

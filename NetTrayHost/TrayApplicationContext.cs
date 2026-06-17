@@ -20,6 +20,7 @@ namespace NetTrayHost
         private readonly AppConfigModel _config;
         private readonly AppLogger _logger;
         private readonly RegistryRunManager _registryRunManager;
+        private readonly LocaleLoader _locale;
         private readonly List<ProcessMenuState> _processMenuStates = [];
         private readonly NotifyIcon _trayIcon;
         private readonly ToolStripMenuItem _netTrayHostStartupMenuItem;
@@ -37,6 +38,7 @@ namespace NetTrayHost
             _registryRunManager = new RegistryRunManager(_logger);
             _configLoader = new ConfigLoader();
             _config = _configLoader.Load();
+            _locale = new LocaleLoader(_config.Locale);
             _runningImage = CreateStatusImage(Color.LimeGreen);
             _stoppedImage = CreateStatusImage(Color.Red);
 
@@ -57,8 +59,8 @@ namespace NetTrayHost
                 menu.Items.Add(new ToolStripSeparator());
             }
 
-            var settingsMenuItem = new ToolStripMenuItem("設定");
-            _netTrayHostStartupMenuItem = new ToolStripMenuItem("NetTrayHost 開機自動啟動", null, (_, _) => ToggleNetTrayHostStartup())
+            var settingsMenuItem = new ToolStripMenuItem(_locale["Settings"]);
+            _netTrayHostStartupMenuItem = new ToolStripMenuItem(_locale["StartupWithWindows"], null, (_, _) => ToggleNetTrayHostStartup())
             {
                 CheckOnClick = false
             };
@@ -67,7 +69,7 @@ namespace NetTrayHost
             menu.Items.Add(new ToolStripSeparator());
             menu.Opening += (_, _) => UpdateNetTrayHostStartupMenuState();
 
-            menu.Items.Add("結束 NetTrayHost", null, OnExit);
+            menu.Items.Add(_locale["Exit"], null, OnExit);
 
             _trayIcon = new NotifyIcon
             {
@@ -98,11 +100,11 @@ namespace NetTrayHost
             });
 
             var rootMenuItem = new ToolStripMenuItem();
-            var startMenuItem = new ToolStripMenuItem("啟動", null, (_, _) => manager.Start());
-            var stopMenuItem = new ToolStripMenuItem("停止", null, (_, _) => manager.Stop());
-            var showMenuItem = new ToolStripMenuItem("顯示視窗", null, (_, _) => manager.ShowConsoleWindow());
-            var hideMenuItem = new ToolStripMenuItem("隱藏視窗", null, (_, _) => manager.HideConsoleWindow());
-            var autoStartMenuItem = new ToolStripMenuItem("跟隨 NetTrayHost 自動啟動", null, (_, _) => ToggleAutoStart(config))
+            var startMenuItem = new ToolStripMenuItem(_locale["Start"], null, (_, _) => manager.Start());
+            var stopMenuItem = new ToolStripMenuItem(_locale["Stop"], null, (_, _) => manager.Stop());
+            var showMenuItem = new ToolStripMenuItem(_locale["ShowWindow"], null, (_, _) => manager.ShowConsoleWindow());
+            var hideMenuItem = new ToolStripMenuItem(_locale["HideWindow"], null, (_, _) => manager.HideConsoleWindow());
+            var autoStartMenuItem = new ToolStripMenuItem(_locale["ProcessAutoStart"], null, (_, _) => ToggleAutoStart(config))
             {
                 CheckOnClick = false
             };
@@ -183,8 +185,8 @@ namespace NetTrayHost
             var manager = processMenuState.Manager;
             var isRunning = manager.IsRunning;
             processMenuState.RootMenuItem.Text = isRunning
-                ? $"{processMenuState.Config.Name}  Running"
-                : $"{processMenuState.Config.Name}  Stopped";
+                ? $"{processMenuState.Config.Name}  {_locale["StatusRunning"]}"
+                : $"{processMenuState.Config.Name}  {_locale["StatusStopped"]}";
             processMenuState.RootMenuItem.Image = isRunning ? _runningImage : _stoppedImage;
             processMenuState.StartMenuItem.Enabled = !isRunning;
             processMenuState.StopMenuItem.Enabled = isRunning;

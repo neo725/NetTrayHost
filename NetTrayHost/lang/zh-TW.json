@@ -1,0 +1,12 @@
+{
+  "Start": "啟動",
+  "Stop": "停止",
+  "ShowWindow": "顯示視窗",
+  "HideWindow": "隱藏視窗",
+  "ProcessAutoStart": "跟隨 NetTrayHost 自動啟動",
+  "Settings": "設定",
+  "StartupWithWindows": "NetTrayHost 開機自動啟動",
+  "Exit": "結束 NetTrayHost",
+  "StatusRunning": "執行中",
+  "StatusStopped": "已停止"
+}

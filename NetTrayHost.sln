@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37328.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetTrayHost", "NetTrayHost\NetTrayHost.csproj", "{83100FD2-B186-4A88-A817-9E3EE0D0EB53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockCli", "spike\MockCli\MockCli.csproj", "{AD8ADADF-E168-8DBD-560B-2DB83837AEE9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83100FD2-B186-4A88-A817-9E3EE0D0EB53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83100FD2-B186-4A88-A817-9E3EE0D0EB53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83100FD2-B186-4A88-A817-9E3EE0D0EB53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83100FD2-B186-4A88-A817-9E3EE0D0EB53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD8ADADF-E168-8DBD-560B-2DB83837AEE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD8ADADF-E168-8DBD-560B-2DB83837AEE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD8ADADF-E168-8DBD-560B-2DB83837AEE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD8ADADF-E168-8DBD-560B-2DB83837AEE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7594CAB9-F24A-4A87-8EE2-6ADCC36724D8}
+	EndGlobalSection
+EndGlobal

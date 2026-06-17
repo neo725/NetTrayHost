@@ -71,7 +71,7 @@ namespace NetTrayHost
 
             _trayIcon = new NotifyIcon
             {
-                Icon = new Icon(typeof(TrayApplicationContext).Assembly.GetManifestResourceStream("NetTrayHost.app.ico")!),
+                Icon = new Icon(typeof(TrayApplicationContext).Assembly.GetManifestResourceStream("NetTrayHost.app.ico")!, 16, 16),
                 Text = "NetTrayHost",
                 Visible = true,
                 ContextMenuStrip = menu

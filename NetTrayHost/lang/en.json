@@ -1,10 +1,12 @@
 {
+  "LocaleName": "English",
   "Start": "Start",
   "Stop": "Stop",
   "ShowWindow": "Show Window",
   "HideWindow": "Hide Window",
   "ProcessAutoStart": "Auto-start with NetTrayHost",
   "Settings": "Settings",
+  "Language": "Language",
   "StartupWithWindows": "Start NetTrayHost with Windows",
   "Exit": "Exit NetTrayHost",
   "StatusRunning": "Running",

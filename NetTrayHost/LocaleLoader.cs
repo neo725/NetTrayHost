@@ -17,6 +17,26 @@ namespace NetTrayHost
 
         public string this[string key] => _strings.TryGetValue(key, out var v) ? v : key;
 
+        public string LocaleName => _strings.TryGetValue("LocaleName", out var v) ? v : "Unknown";
+
+        public static IReadOnlyList<(string Code, string Name)> DiscoverLocales()
+        {
+            var langDir = Path.Combine(AppContext.BaseDirectory, "lang");
+            if (!Directory.Exists(langDir))
+            {
+                return [];
+            }
+
+            var result = new List<(string, string)>();
+            foreach (var file in Directory.EnumerateFiles(langDir, "*.json").Order())
+            {
+                var code = Path.GetFileNameWithoutExtension(file);
+                var loader = new LocaleLoader(code);
+                result.Add((code, loader.LocaleName));
+            }
+            return result;
+        }
+
         private static Dictionary<string, string>? TryLoad(string path)
         {
             if (!File.Exists(path))

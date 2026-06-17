@@ -8,6 +8,7 @@ namespace NetTrayHost.Models
         public string Arguments { get; set; } = string.Empty;
         public bool AutoStart { get; set; }
         public bool AutoRestart { get; set; }
+        public int MaxAutoRestartAttempts { get; set; } = 3;
         public bool StartVisible { get; set; }
     }
 }

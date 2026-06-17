@@ -5,7 +5,6 @@ namespace NetTrayHost
 {
     internal sealed class ProcessManager : IDisposable
     {
-        private const int MaxAutoRestartAttempts = 3;
         private static readonly TimeSpan ConsoleHandleTimeout = TimeSpan.FromSeconds(3);
         private static readonly TimeSpan RestartDelay = TimeSpan.FromSeconds(1);
 
@@ -283,20 +282,20 @@ namespace NetTrayHost
                 shouldRestart = !_disposed
                     && !_userRequestedStop
                     && _config.AutoRestart
-                    && _autoRestartAttempts < MaxAutoRestartAttempts;
+                    && _autoRestartAttempts < _config.MaxAutoRestartAttempts;
 
                 if (shouldRestart)
                 {
                     _autoRestartAttempts++;
                     restartAttempt = _autoRestartAttempts;
-                    _logger.Info($"Process '{Name}' auto restart scheduled. Attempt={restartAttempt}/{MaxAutoRestartAttempts}.");
+                    _logger.Info($"Process '{Name}' auto restart scheduled. Attempt={restartAttempt}/{_config.MaxAutoRestartAttempts}.");
                 }
                 else
                 {
                     restartAttempt = _autoRestartAttempts;
-                    if (!_userRequestedStop && _config.AutoRestart && _autoRestartAttempts >= MaxAutoRestartAttempts)
+                    if (!_userRequestedStop && _config.AutoRestart && _autoRestartAttempts >= _config.MaxAutoRestartAttempts)
                     {
-                        _logger.Info($"Process '{Name}' auto restart stopped after reaching max attempts ({MaxAutoRestartAttempts}).");
+                        _logger.Info($"Process '{Name}' auto restart stopped after reaching max attempts ({_config.MaxAutoRestartAttempts}).");
                     }
                     _autoRestartAttempts = 0;
                 }
@@ -317,7 +316,7 @@ namespace NetTrayHost
                         }
                         catch (Exception ex)
                         {
-                            _logger.Error($"Process '{Name}' auto restart attempt {restartAttempt}/{MaxAutoRestartAttempts} failed.", ex);
+                            _logger.Error($"Process '{Name}' auto restart attempt {restartAttempt}/{_config.MaxAutoRestartAttempts} failed.", ex);
                         }
                     }, null));
             }

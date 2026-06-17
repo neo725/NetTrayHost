@@ -62,3 +62,24 @@ CLI processes may start without a visible window. `ProcessManager` uses a retry 
 All runtime files live next to the `.exe` in `bin/Debug/net8.0-windows/` (or the publish output):
 - `config.json` — process configuration
 - `NetTrayHost.log` — append-only log (thread-safe, timestamped)
+
+# Git Commit Rules
+
+When suggesting git commit messages:
+
+1. Follow the rules defined in CONVENTIONAL_COMMITS.md.
+2. Use Conventional Commits 1.0.0 format.
+3. Choose the most appropriate commit type.
+4. Use English only.
+5. Use lowercase descriptions.
+6. Include scope whenever applicable.
+7. Avoid generic messages such as:
+   - update
+   - fix bug
+   - modify code
+   - misc
+
+Before finishing any coding task:
+
+- Provide a recommended git commit message.
+- Explain why the selected commit type was chosen.

@@ -13,3 +13,4 @@ Users/
 # Runtime files (generated next to exe)
 NetTrayHost/bin/Debug/net8.0-windows/config.json
 NetTrayHost/bin/Debug/net8.0-windows/NetTrayHost.log
+*.zip
